@@ -1,12 +1,17 @@
 package com.nadyne.newapi.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +31,12 @@ public class User implements Serializable {
 	
 	public User() {
 	}
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders  = new ArrayList<>();
+	
+	
 
 	public User(Long id, String name, String email, String password, String phone) {
 		super();
@@ -88,7 +99,9 @@ public class User implements Serializable {
 		return phone;
 	}
 
-
+	public List<Order> getOrders() {
+		return orders;
+	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -113,6 +126,8 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 	
 }
