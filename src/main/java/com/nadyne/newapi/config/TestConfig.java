@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.nadyne.newapi.entities.Category;
 import com.nadyne.newapi.entities.Order;
 import com.nadyne.newapi.entities.OrderItem;
+import com.nadyne.newapi.entities.Payment;
 import com.nadyne.newapi.entities.Product;
 import com.nadyne.newapi.entities.User;
 import com.nadyne.newapi.entities.enums.OrderStatus;
@@ -76,6 +77,11 @@ public class TestConfig implements CommandLineRunner {
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2024-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 
 	}
 
